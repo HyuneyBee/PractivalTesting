@@ -19,7 +19,7 @@ public class Product {
     private ProductType type;
 
     @Enumerated(EnumType.STRING)
-    private ProductSellingType productSellingType;
+    private ProductSellingType sellingType;
 
     private String name;
 
