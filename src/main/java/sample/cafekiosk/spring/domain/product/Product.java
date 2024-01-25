@@ -4,11 +4,12 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import sample.cafekiosk.spring.domain.BaseEntity;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Product {
+public class Product extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,7 +20,7 @@ public class Product {
     private ProductType type;
 
     @Enumerated(EnumType.STRING)
-    private ProductSellingType sellingType;
+    private ProductSellingStatus sellingStatus;
 
     private String name;
 
