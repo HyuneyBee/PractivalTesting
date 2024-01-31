@@ -6,6 +6,7 @@ import sample.cafekiosk.spring.domain.product.Product;
 import sample.cafekiosk.spring.domain.product.ProductSellingStatus;
 import sample.cafekiosk.spring.domain.product.ProductType;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,9 +21,40 @@ class OrderTest {
             createProduct("002", 2000)
         );
 
-        Order order = Order.create(products);
+        Order order = Order.create(products, LocalDateTime.now());
 
         assertThat(order.getTotalPrice()).isEqualTo(3000);
+
+    }
+
+    @DisplayName("주문 생성 시 주문 상태는 INIT이다.")
+    @Test
+    void init(){
+
+        List<Product> products = List.of(
+            createProduct("001", 1000),
+            createProduct("002", 2000)
+        );
+
+        Order order = Order.create(products, LocalDateTime.now());
+
+        assertThat(order.getOrderStatus()).isEqualByComparingTo(OrderStatus.INIT);
+
+    }
+
+    @DisplayName("주문 생성 시 등록 시간을 기록한다.")
+    @Test
+    void registeredDateTime(){
+
+        LocalDateTime registeredDateTime = LocalDateTime.now();
+        List<Product> products = List.of(
+            createProduct("001", 1000),
+            createProduct("002", 2000)
+        );
+
+        Order order = Order.create(products, LocalDateTime.now());
+
+        assertThat(order.getRegisteredDateTime()).isEqualTo(registeredDateTime);
 
     }
 
